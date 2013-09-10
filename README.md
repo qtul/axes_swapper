@@ -35,7 +35,15 @@ License
 Usage
 -----
 
+```shell
 axis_swapper.py Circumference InFile OutFile
+```
+
+or
+
+```shell
+python axis_swapper.py Circumference InFile OutFile
+```
 
 Where:
 * Circumference is the length in the Y axis which corresponds to a 360 degrees rotation
@@ -48,6 +56,11 @@ For example:
 ```shell
 axis_swapper.py 5 Test_input.ngc Test_output.ngc
 ```
+
+The above example will wrap the toolpaths contained in Test_input.ngc around a
+1.592 diameter workpiece. The results will be written to Test_output.ngc. Note
+that there's no explicit notion of units. The unit could be inches or mm,
+depending on your G code interpreter's defaults and any G20 or G21 commands.
 
 
 Details
@@ -63,6 +76,9 @@ example, 1 inch per second usually does not equal to 1 degree per second. If F
 words are not scaled, the result is usually unbearably slow G code. This program
 handles F word scaling, but it is not numerically accurate. For most cases, the
 result is close enough and doesn't matter.
+
+All toolpaths in your code must be linear (i.e. G0 and G1, no G2 and G3). Most
+CAM software have an option to do this.
 
 This program does all its parsing conversion through a bunch of regular
 expressions.
